@@ -10,5 +10,8 @@ class PageController < ApplicationController
   
   def signin
   end
+
+  def comments
+  end
   
  end

@@ -13,12 +13,18 @@
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse navbar-ex1-collapse">
-    <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right">
       <li><a href="/">Home</a></li>
       <li><a href="/about">About</a></li> 
+      <li><a href="/comments">Tell us what you think!</a></li>
       <li><a href="/search">Search</a></li>
-      <li><a href="/signin">Sign In</a></li>
-      <li><a href="/signup">Sign Up</a></li>
+      <% if user_signed_in? %>
+        <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+      <% else %>
+        <li><%= link_to "Sign Up", new_user_registration_path %></li>
+        <li><%= link_to "Sign In", new_user_session_path %></li>
+      <% end %> 
+    </ul>
       
     </ul>
   </div><!-- /.navbar-collapse -->
@@ -34,8 +40,13 @@
 </head>
 <body>
 
+  <div class="container">
+  <% flash.each do |name, msg| %>
+    <%= content_tag(:div, msg, class: "alert alert-info") %>
+  <% end %>
+  <%= yield %>
+</div>
 
-<%= yield %>
 
 </body>
 </html>
